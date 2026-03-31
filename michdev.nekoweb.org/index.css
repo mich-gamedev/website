@@ -91,6 +91,12 @@ h6 {
   font-weight           : 595;
 }
 
+h2.site-header {
+  margin: 10px;
+  text-align: center;
+}
+
+
 button {
   --main-color    : #000;
   font-size       : .85em;
@@ -154,6 +160,22 @@ button:active {
   opacity               : 0.9;
   transition            : all .05s;
 }
+button.circle-icon {
+  border-width    : 0px;
+  padding-left    : 0px;
+  padding-top     : 0px;
+  padding-right   : 0px;
+  padding-bottom  : 0px;
+  margin-bottom   : 4px;
+  height          : 29.75px;
+  border-radius   : 100%;
+}
+button.circle-icon:only-of-type {
+  --main-color          : var(--vhs-light-blue)
+}
+button.circle-icon > .material-symbols-outlined {
+  transform: translate(1px, 0px);
+}
 
 hr {
   border-top            : 2px dashed var(--vhs-bg3);
@@ -168,16 +190,6 @@ div {
 }
 div.dashed {
   border-style          : dashed;
-}
-div.main {
-  border-width: 2px;
-  border-style          : dashed;
-  max-width: 80%;
-  min-width: fit-content;
-  max-height: calc(100% - 96px);
-  margin: auto;
-  aspect-ratio: 1/1;
-  display: grid;
 }
 div.empty {
   border-width: 0px;
@@ -210,7 +222,7 @@ pre.logo-possum {
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
   font-style: normal;
-  font-variation-settings: 'FILL' 1, 'wght' 800, 'opsz' 20;
+  font-variation-settings: 'FILL' 0, 'wght' 900, 'opsz' 20;
   font-size: 1em;  /* Preferred icon size */
   display: inline-block;
   line-height: 1;
@@ -221,4 +233,13 @@ pre.logo-possum {
   direction: ltr;
   vertical-align: baseline;
   transform: translate(0px, 2px);
+}
+button:hover > .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 900, 'opsz' 20;
+}
+.marquee {
+  position: relative;
+}
+div.right-shadow {
+  border-right: var(--background);
 }
