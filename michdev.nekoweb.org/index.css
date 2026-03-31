@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
+@import url(vinths.css);
+:root {
+    --vhs-bg0             : #141414;
+    --vhs-bg1             : #202125;
+    --vhs-bg2             : #2c2e2d;
+    --vhs-bg3             : #464847;
+    --vhs-bg4             : #545454;
+    --vhs-txt1            : #e9f6e1;
+    --vhs-txt2            : #d0c6b0;
+    --vhs-txt3            : #a49894;
+    --vhs-txt4            : #827d7d;
+
+    --vhs-red             : #f72738;
+    --vhs-scarlet         : #e44326;
+    --vhs-orange          : #f8812f;
+    --vhs-yellow          : #ffd340;
+    --vhs-lime            : #a7c96b;
+    --vhs-green           : #57b069;
+    --vhs-cyan            : #4582c7;
+    --vhs-blue            : #3c53ce;
+
+    --vhs-light-red       : #f34f6f;
+    --vhs-light-scarlet   : #f07a5e;
+    --vhs-light-orange    : #f6a280;
+    --vhs-light-yellow    : #e8dcad;
+    --vhs-light-lime      : #b6da8b;
+    --vhs-light-green     : #79d8a9;
+    --vhs-light-cyan      : #82c7eb;
+    --vhs-light-blue      : #797dde;
+}
+:root {
+  --background          : var(--vhs-bg0);
+  --midground           : var(--vhs-bg3);
+  --foreground          : var(--vhs-txt1);
+  --accent              : var(--vhs-light-blue);
+  font-size             : 20px;
+  font-family           : 'Fira Code', monospace;
+  height: 100%;
+}
+
+body {
+  background            : var(--background);
+  color                 : var(--foreground);
+  padding               : 8px;
+}
+
+p {
+  color                 : var(--vhs-txt1)
+}
+
+h1 {
+  color                 : var(--vhs-txt1);
+  font-weight           : 550;
+  font-size             : 3em;
+  border-bottom-color   : var(--vhs-bg3);
+  border-bottom-width   : 2px;
+  padding-left          : 4px;
+}
+h2 {
+  color                 : var(--vhs-txt2);
+  font-size             : 2.5em;
+  font-weight           : 550;
+  border-bottom-color   : var(--vhs-bg3);
+  border-bottom-width   : 2px;
+  border-bottom-style   : dashed;
+  padding-left          : 4px;
+}
+h3 {
+  color                 : var(--vhs-txt3);
+  font-size             : 2em;
+  font-weight           : 560;
+  padding-left          : 4px;
+}
+h4 {
+  color                 : var(--vhs-txt3);
+  font-size             : 1.66em;
+  font-weight           : 580;
+  padding-left          : 4px;
+}
+h5 {
+  color                 : var(--vhs-txt3);
+  font-size             : 1.33em;
+  padding-left          : 4px;
+  font-weight           : 595;
+}
+h6 {
+  color                 : var(--vhs-txt3);
+  font-size             : 1.25em;
+  padding-left          : 4px;
+  font-weight           : 595;
+}
+
+button {
+  --main-color    : #000;
+  font-size       : .85em;
+  color           : var(--main-color);
+  background-color: var(--background);
+  font-weight     : 600;
+  border-radius   : 4px;
+  border-color    : var(--main-color);
+  border-width    : 2px;
+  margin          : 4px;
+  padding         : 4px 8px;
+  transition      : all .15s;
+  border-style    : solid;
+  cursor          : pointer;
+}
+
+button:hover {
+--main-color            : #000;
+  font-weight           : 800;
+  background-color      : var(--main-color);
+  color                 : var(--background);
+  border-color          : var(--main-color);
+  transition            : all 0s;
+}
+button:nth-child(8n+1 of button) {
+  --main-color          : var(--vhs-red)
+}
+button:nth-child(8n+2 of button) {
+  --main-color          : var(--vhs-scarlet)
+}
+button:nth-child(8n+3 of button) {
+  --main-color          : var(--vhs-orange)
+}
+button:nth-child(8n+4 of button) {
+  --main-color          : var(--vhs-yellow)
+}
+button:nth-child(8n+5 of button) {
+  --main-color          : var(--vhs-lime)
+}
+button:nth-child(8n+6 of button) {
+  --main-color          : var(--vhs-green)
+}
+button:nth-child(8n+7 of button) {
+  --main-color          : var(--vhs-cyan)
+}
+button:nth-child(8n+8 of button) {
+  --main-color          : var(--vhs-blue)
+}
+button.primary:nth-child(n) {
+  --main-color          : var(--vhs-txt1)
+}
+button.flat {
+  border-width          : 0px;
+}
+button.flat:only-of-type {
+  --main-color          : var(--vhs-light-blue)
+}
+button:active {
+  --main-color          : var(--vhs-bg4);
+  scale                 : .9;
+  opacity               : 0.9;
+  transition            : all .05s;
+}
+
+hr {
+  border-top            : 2px dashed var(--vhs-bg3);
+}
+
+div {
+  background-color: var(--background);
+  border                : 2px solid var(--vhs-bg4);
+  border-radius         : 8px;
+  padding               : 4px;
+  margin                : 8px
+}
+div.dashed {
+  border-style          : dashed;
+}
+div.main {
+  border-width: 2px;
+  border-style          : dashed;
+  max-width: 80%;
+  min-width: fit-content;
+  max-height: calc(100% - 96px);
+  margin: auto;
+  aspect-ratio: 1/1;
+  display: grid;
+}
+div.empty {
+  border-width: 0px;
+  background-color: transparent;
+}
+div.empty-no-pad {
+  border-width: 0px;
+  background-color: transparent;
+  padding: 0px;
+  margin: 0px;
+}
+:link {
+  color                 : var(--vhs-light-cyan);
+}
+:visited {
+  color                 : var(--vhs-light-blue);
+}
+::selection {
+  background-color      : var(--vhs-light-blue);
+  color                 : var(--vhs-bg0);
+}
+pre.logo-possum {
+  margin: 0;
+  font-size: .35em;
+  display: inline flow-root;
+  font-weight: 900;
+  line-height: 1.1em;
+}
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-variation-settings: 'FILL' 1, 'wght' 800, 'opsz' 20;
+  font-size: 1em;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: baseline;
+  transform: translate(0px, 2px);
+}
