@@ -363,6 +363,12 @@ div.blog-card {
   text-overflow: ellipsis;
   overflow     : hidden;
   overflow-wrap: break-word;
+  transition: 0.15s;
+  cursor: pointer;
+}
+div.blog-card:hover {
+  border                : 2px solid var(--vhs-txt4);
+  transition: 0s;
 }
 div.blog-card > h3 {
   margin       : 0px 8px;
@@ -372,12 +378,32 @@ div.blog-card > h3 {
   overflow     : hidden;
   overflow-wrap: break-word;
 }
+div.blog-card:hover > h3 {
+  color: var(--vhs-txt1);
+}
 div.blog-card > p {
   margin       : 0px 12px;
-  color        : var(--vhs-txt2);
+  color        : var(--vhs-txt3);
   text-overflow: ellipsis;
   overflow     : clip;
   overflow-wrap: break-word;
   max-height   : 220px;
   word-break   : break-word;
+}
+div.blog-card:hover > p {
+  color: var(--vhs-txt2);
+}
+div.blog-card:hover > hr {
+  border-top            : 2px dashed var(--vhs-bg4);
+}
+td {
+  padding: .5em 0;
+  border-bottom: 2px solid var(--vhs-bg2);
+}
+tr:last-child > td {
+  border-bottom: none;
+}
+p.subtext {
+  font-size: .8em;
+  color: var(--vhs-txt3);
 }
