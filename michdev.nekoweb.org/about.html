@@ -5,11 +5,12 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.5" />
 		<title>a michtastic site</title>
-		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=balance,deployed_code,desktop_windows,forum,home,info,laptop_windows,memory,memory_alt,monitor,palette,save&display=block
+		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=balance,chevron_right,deployed_code,desktop_windows,forum,home,info,laptop_windows,memory,memory_alt,monitor,palette,save&display=block
 " rel="stylesheet" />
 		<style>
 			@import url(./index.css);
 		</style>
+        <script defer src="./collapsible.js"></script>
 	</head>
     <body>
         <div class="main">
@@ -26,7 +27,8 @@
                 <a href="./blog.html"><button><span class="material-symbols-outlined">palette</span> portfolio</button></a>
             </p>
             <p>my name is <span style="font-weight: 500;">mich</span> and i make tiny programs out of tiny pictures. I've been making art since 2017, and games since 2022.</p>
-            <h3 style="margin: 0;">I have experience in...</h3>
+            <button class="collapsible start-active" id="section-experience">I have experience in...<span class="chevron material-symbols-outlined" style="font-variation-settings: 'wght' 700;">chevron_right</span></button>
+            <div class="empty collapsible-content">
             <table style="width: 100%; margin: auto;">
                 <tr><td>- pixel art</td>       <td style="text-align: right;"><pre style="margin: 0;">[##########] 5/5*</pre></td></tr>
                 <tr><td>- game design / ux</td><td style="text-align: right;"><pre style="margin: 0;">[##########] 5/5*</pre></td></tr>
@@ -37,35 +39,36 @@
                 <tr><td>- sfx</td>             <td style="text-align: right;"><pre style="margin: 0;">[####      ] 2/5*</pre></td></tr>
                 <tr><td>- music</td>           <td style="text-align: right;"><pre style="margin: 0;">[##        ] 1/5*</pre></td></tr>
             </table>
-            <table style="width:100%;margin: auto;"><tr>
-                <td style="width: 50%; vertical-align: text-top;">
-                    <h3 style="margin:0">tools i use</h3>
-                    <p style="margin-bottom: 8px;">- godot<span class="tag siteinfo"><span class="material-symbols-outlined fill">balance</span> MIT</span></p>
-                        <p class="subtext" style="margin: 8px 64px">general purpose 3d and 2d engine</p>
-                    <p style="margin-bottom: 8px;">- aseprite</p>
-                        <p class="subtext" style="margin: 8px 64px">pixel art image editor</p>
-                    <p style="margin-bottom: 8px;">- blender <span class="tag siteinfo"><span class="material-symbols-outlined fill">balance</span> GPL</span></p>
-                        <p class="subtext" style="margin: 8px 64px">versatile 3D model editor</p>
-                    <p style="margin-bottom: 8px;">- krita <span class="tag siteinfo"><span class="material-symbols-outlined fill">balance</span> GPL</span></p>
-                        <p class="subtext" style="margin: 8px 64px">digital painting program</p>
-                    <p style="margin-bottom: 8px;">- FL studio</p>
-                        <p class="subtext" style="margin: 8px 64px">general purpose DAW (digital audio workstation)</p>
-                </td>
-                <td style="width: 50%; vertical-align: text-top;">
-                    <h3 style="margin: 0 0 10px 0;">pc specs</h3>
-                    <p class="tag siteinfo" style="margin: 0;"><span class="material-symbols-outlined fill">desktop_windows</span> custom built</p>
-                    <p><span class="material-symbols-outlined fill">memory</span> ryzen 7 7700x</p>
-                    <p><span class="material-symbols-outlined fill">memory_alt</span> 32gb ddr5</p>
-                    <p><span class="material-symbols-outlined fill">monitor</span> radeon 6700xt / 3440x1440 165hz</p>
-                    <p><span class="material-symbols-outlined fill">save</span><sub>1</sub> 1tb nvme</p>
-                    <p><span class="material-symbols-outlined fill">save</span><sub>2</sub> 500gb sata</p>
-                    <p class="tag siteinfo" style="margin: 0;"><span class="material-symbols-outlined fill">laptop_windows</span> lenovo thinkpad t580</p>
-                    <p><span class="material-symbols-outlined fill">memory</span> i5-8350U</p>
-                    <p><span class="material-symbols-outlined fill">memory_alt</span> 16gb ddr4</p>
-                    <p><span class="material-symbols-outlined fill">monitor</span> intel uhd 620 / 1920x1080 60hz</p>
-                    <p><span class="material-symbols-outlined fill">save</span> 500gb nvme</p>
-                </td>
-            </tr></table>
+        </div>
+            <button class="collapsible" id="section-tools">tools i use<span class="chevron material-symbols-outlined" style="font-variation-settings: 'wght' 700;">chevron_right</span></button>
+            <div class="empty collapsible-content">
+            <p style="margin-bottom: 8px;">- godot<span class="tag siteinfo"><span class="material-symbols-outlined fill">balance</span> MIT</span></p>
+                <p class="subtext" style="margin: 8px 64px">general purpose 3d and 2d engine</p>
+            <p style="margin-bottom: 8px;">- aseprite</p>
+                <p class="subtext" style="margin: 8px 64px">pixel art image editor</p>
+            <p style="margin-bottom: 8px;">- blender <span class="tag siteinfo"><span class="material-symbols-outlined fill">balance</span> GPL</span></p>
+                <p class="subtext" style="margin: 8px 64px">versatile 3D model editor</p>
+            <p style="margin-bottom: 8px;">- krita <span class="tag siteinfo"><span class="material-symbols-outlined fill">balance</span> GPL</span></p>
+                <p class="subtext" style="margin: 8px 64px">digital painting program</p>
+            <p style="margin-bottom: 8px;">- FL studio</p>
+                <p class="subtext" style="margin: 8px 64px">general purpose DAW (digital audio workstation)</p>
+            </div>
+            <h3 style="margin: 0;" id="section-specs">specs</h3>
+            <button class="collapsible" style="font-size: 1.25em;"><span class="material-symbols-outlined fill">desktop_windows</span> custom built<span class="chevron material-symbols-outlined" style="font-variation-settings: 'wght' 700;">chevron_right</span></button>
+            <div class="empty collapsible-content">
+                <p><span class="material-symbols-outlined fill">memory</span> ryzen 7 7700x</p>
+                <p><span class="material-symbols-outlined fill">memory_alt</span> 32gb ddr5</p>
+                <p><span class="material-symbols-outlined fill">monitor</span> radeon 6700xt / 3440x1440 165hz</p>
+                <p><span class="material-symbols-outlined fill">save</span><sub>1</sub> 1tb nvme</p>
+                <p><span class="material-symbols-outlined fill">save</span><sub>2</sub> 500gb sata</p>
+            </div>
+            <button class="collapsible" style="font-size: 1.25em;"><span class="material-symbols-outlined fill">laptop_windows</span> lenovo thinkpad t580<span class="chevron material-symbols-outlined" style="font-variation-settings: 'wght' 700;">chevron_right</span></button>
+            <div class="empty collapsible-content">
+                <p><span class="material-symbols-outlined fill">memory</span> i5-8350U</p>
+                <p><span class="material-symbols-outlined fill">memory_alt</span> 16gb ddr4</p>
+                <p><span class="material-symbols-outlined fill">monitor</span> intel uhd 620 / 1920x1080 60hz</p>
+                <p><span class="material-symbols-outlined fill">save</span> 500gb nvme</p>
+            </div>
         </div>
     </body>
 </html>

@@ -407,3 +407,65 @@ p.subtext {
   font-size: .8em;
   color: var(--vhs-txt3);
 }
+div.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+div.flex-fill > button {
+  flex-grow    : 1;
+  flex-basis: auto;
+  transition: all .3s ease-out;
+}
+button.fill-space:hover {
+  flex-grow    : 4;
+  flex-basis: auto;
+  transition: all .3s ease-out;
+}
+.collapsible {
+  text-align: left;
+  width: 100%;
+  font-family: 'Fira Code';
+  color                 : var(--vhs-txt3);
+  font-size             : 2em;
+  font-weight           : 560;
+  padding-left          : 4px;
+  border: none;
+  border-radius: 4px;
+  transition: all 0.15s;
+  margin-bottom: 4px;
+}
+.collapsible:active {
+  scale: 1;
+  opacity: .8;
+  transition            : all .05s;
+}
+.collapsible:hover {
+  font-weight: 550;
+  background-color: transparent;
+  color: var(--vhs-txt2);
+  transition: all 0s;
+}
+.collapsible > .chevron {
+  transform: rotate(0deg) translateY(6px);
+  transition: all 0.3s ease-out;
+}
+.collapsible.active > .chevron {
+  transform: rotate(90deg) translateX(6px);
+  transition: all 0.25s ease-out;
+}
+.collapsible-content {
+  display: block;
+  margin-top: 4px;
+  margin-left: 32px;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+}
+.tag-filter.filter-active {
+--main-color            : #000;
+  font-weight           : 800;
+  background-color      : var(--main-color);
+  color                 : var(--background);
+  border-color          : var(--main-color);
+  transition            : all 0s;
+}
