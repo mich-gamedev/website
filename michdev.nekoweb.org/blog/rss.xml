@@ -1,0 +1,42 @@
+<!--
+Items should be including in reverse chronological order, with the newest entries appearing at the top. The blog page has no sorting functionality yet as i cba
+Available categories (case sensitive!!!!):
+tutorial
+project
+portfolio
+godot
+2d
+3d
+ui
+idea
+game
+art
+code
+misc
+-->
+<rss version="2.0">
+	<channel>
+		<title>posts from michdev.nekoweb.org</title>
+		<description>mich's blog</description>
+		<link>https://michdev.nekoweb.org/blog.html</link>
+		<item>
+			<title>testing testing</title>
+			<description>Hopefully this looks cool. Lorem ipsum dolor sit amet, laborum esse commodo in fugiat tempor commodo magna. Fugiat nisi laboris esse. Ad magna mollit enim sit deserunt ex. Aliqua nisi esse magna anim quis adipiscing, voluptate irure occaecat sint cillum, et ipsum do lorem nulla tempor duis. Deserunt lorem tempor pariatur incididunt reprehenderit. Do esse aliquip veniam culpa duis veniam, proident exercitation id commodo elit sunt ipsum qui, aute ut ullamco amet. Veniam occaecat nostrud voluptate esse exercitation est ea, pariatur tempor ullamco duis labore excepteur eiusmod. Excepteur in sit cillum est ut cupidatat, culpa pariatur incididunt culpa pariatur anim qui, pariatur sint do eiusmod duis irure aliqua. Excepteur sed nostrud proident sit velit, sit qui laboris minim velit ipsum veniam cupidatat. Fugiat eiusmod voluptate sint. Excepteur adipiscing est cupidatat qui non veniam. Do occaecat dolore labore aliquip pariatur laborum. Ex fugiat consequat ut quis dolore anim. Aliquip et culpa veniam et consequat sunt tempor.</description>
+			<link>https://michdev.nekoweb.org/blog/2025_04_11.html</link>
+			<guid>firstpost</guid>
+			<pubDate>Fri 03 Apr 2026, 00:34:00 -0400</pubDate>
+			<category>godot</category>
+            <category>2d</category>
+            <category>idea</category>
+		</item>
+		<item>
+			<title>first blog post :]</title>
+			<description>(click to see full) first blog post :], admittedly im not sure if i want this to be a super common thing where i talk about random stuff or just updates to the site or project announcements but we'll see... there's a chance i forget i made this after a week but im hoping not :p</description>
+			<link>https://michdev.nekoweb.org/blog/2025_04_11.html</link>
+			<guid>firstpost</guid>
+			<pubDate>Fri 11 Apr 2025, 09:45:00 -0400</pubDate>
+			<category>misc</category>
+            <category>tutorial</category>
+		</item>
+	</channel>
+</rss>

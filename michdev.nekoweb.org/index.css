@@ -221,13 +221,11 @@ button.circle-icon {
   padding-bottom  : 0px;
   margin-bottom   : 4px;
   height          : 29.75px;
+  width: 29.75px;
   border-radius   : 100%;
 }
 button.circle-icon:only-of-type {
   --main-color          : var(--vhs-light-blue)
-}
-button.circle-icon > .material-symbols-outlined {
-  transform: translate(1px, 0px);
 }
 button > a {
   text-decoration: none;;
@@ -390,6 +388,10 @@ div.blog-card > p {
   max-height   : 220px;
   word-break   : break-word;
 }
+div.blog-card > p.content {
+  mask-image: linear-gradient(rgba(0,0,0,1) 90%, rgba(0,0,0,0) 95%);
+  height: 100%;
+}
 div.blog-card:hover > p {
   color: var(--vhs-txt2);
 }
@@ -414,12 +416,12 @@ div.flex {
 div.flex-fill > button {
   flex-grow    : 1;
   flex-basis: auto;
-  transition: all .3s ease-out;
+  transition: flex-grow .3s ease-out;
 }
 button.fill-space:hover {
   flex-grow    : 4;
   flex-basis: auto;
-  transition: all .3s ease-out;
+  transition: flex-grow .3s ease-out;
 }
 .collapsible {
   text-align: left;
@@ -461,11 +463,23 @@ button.fill-space:hover {
   max-height: 0;
   transition: max-height 0.3s ease-out;
 }
+.tag-filter {
+  padding: 4px 2px;
+  flex-basis: calc(fit-content + 27px);
+}
 .tag-filter.filter-active {
---main-color            : #000;
   font-weight           : 800;
   background-color      : var(--main-color);
   color                 : var(--background);
   border-color          : var(--main-color);
-  transition            : all 0s;
+}
+button:hover > .reload-wheel {
+  animation-name: reload-rotate;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+@keyframes reload-rotate {
+  from {rotation: 0deg;}
+  to {rotation: 90deg;}
 }

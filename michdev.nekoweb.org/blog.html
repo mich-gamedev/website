@@ -5,11 +5,12 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.5" />
 		<title>a michtastic site</title>
-		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=deployed_code,edit,forum,home,info,palette,sell&display=block
+		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=check,close_small,deployed_code,edit,forum,home,info,link_2,palette,refresh,rss_feed,sell&display=block
 " rel="stylesheet" />
 		<style>
 			@import url(./index.css);
 		</style>
+		<script defer src="./blog-tags.js"></script>
 	</head>
     <body>
         <div class="main">
@@ -28,58 +29,42 @@
 			</p>
 			<table style="width: 100%;">
 				<tr>
-					<td style="width: 25%;height: 100%;vertical-align: text-top;"><div style="position: sticky;top: 24px;">
-						<h5 style="margin: 0;"><span class="material-symbols-outlined" style="vertical-align:middle;">sell</span> tags</h5>
-						<div class="empty flex flex-fill">
-							<button class="fill-space tag-filter">tutorial</button>
-							<button class="fill-space tag-filter">project</button>
-							<button class="fill-space tag-filter">portfolio</button>
-							<button class="fill-space tag-filter">godot</button>
-							<button class="fill-space tag-filter">2d</button>
-							<button class="fill-space tag-filter">3d</button>
-							<button class="fill-space tag-filter">ui</button>
-							<button class="fill-space tag-filter">idea</button>
-							<button class="fill-space tag-filter">game</button>
-							<button class="fill-space tag-filter">art</button>
-							<button class="fill-space tag-filter">code</button>
-							<button class="fill-space tag-filter">misc</button>
+					<td style="width: 25%;height: 100%;vertical-align: text-top;">
+						<div style="position: sticky;top: 24px;">
+							<div class="empty">
+								<h5 style="margin: 0;display: inline-block;"><span class="material-symbols-outlined">sell</span> tags</h5>
+								<button class="flat circle-icon" style="float:right;font-size: 1em;--main-color: var(--vhs-txt3)" id="btn-reset-tags"><span class="material-symbols-outlined reload-wheel">refresh</span></button>
+								<button class="flat circle-icon" style="float:right;font-size: 1em;--main-color: var(--vhs-txt3)" id="btn-reset-tags"><span class="material-symbols-outlined">link_2</span></button>
+							</div>
+							<div class="empty flex flex-fill">
+								<button class="fill-space tag-filter" id="tutorial"><span class="material-symbols-outlined">close_small</span> tutorial</button>
+								<button class="fill-space tag-filter" id="project"><span class="material-symbols-outlined">close_small</span> project</button>
+								<button class="fill-space tag-filter" id="portfolio"><span class="material-symbols-outlined">close_small</span> portfolio</button>
+								<button class="fill-space tag-filter" id="godot"><span class="material-symbols-outlined">close_small</span> godot</button>
+								<button class="fill-space tag-filter" id="2d"><span class="material-symbols-outlined">close_small</span> 2d</button>
+								<button class="fill-space tag-filter" id="3d"><span class="material-symbols-outlined">close_small</span> 3d</button>
+								<button class="fill-space tag-filter" id="ui"><span class="material-symbols-outlined">close_small</span> ui</button>
+								<button class="fill-space tag-filter" id="idea"><span class="material-symbols-outlined">close_small</span> idea</button>
+								<button class="fill-space tag-filter" id="game"><span class="material-symbols-outlined">close_small</span> game</button>
+								<button class="fill-space tag-filter" id="art"><span class="material-symbols-outlined">close_small</span> art</button>
+								<button class="fill-space tag-filter" id="code"><span class="material-symbols-outlined">close_small</span> code</button>
+								<button class="fill-space tag-filter" id="misc"><span class="material-symbols-outlined">close_small</span> misc</button>
+							</div>
 						</div>
-					</div></td>
-					<td style="width: 75%;">
-				<div class="blog-card" style="width: 100%;">
-					<h3>How to make websites</h3>
-					<p class="subtext"><span class="material-symbols-outlined">edit</span> 2026-04-01 | <span class="tag">tutorial</span> <span class="tag">ui</span> <span class="tag">code</span></p>
-					<hr>
-					<p>Lorem ipsum dolor sit amet, commodo dolore nisi aliqua occaecat, fugiat incididunt ipsum consectetur id qui ullamco quis. Elit est nulla occaecat sed officia ad voluptate. Sed nostrud cillum duis ut laboris consectetur. Reprehenderit officia ullamco cupidatat aliqua do tempor duis. Minim mollit et consequat sit laborum ipsum aute.</p>
-				</div>
-				<div class="blog-card" style="width: 100%;">
-					<h3>Cool game idea</h3>
-					<hr>
-					<p>Description</p>
-				</div>
-				<div class="blog-card" style="width: 100%;">
-					<h3>Cool game idea</h3>
-					<hr>
-					<p>Description</p>
-				</div>
-				<div class="blog-card" style="width: 100%;">
-					<h3>Cool game idea</h3>
-					<hr>
-					<p>Description</p>
-				</div>
-				<div class="blog-card" style="width: 100%;">
-					<h3>Cool game idea</h3>
-					<hr>
-					<p>Description</p>
-				</div>
-				<div class="blog-card" style="width: 100%;">
-					<h3>Cool game idea</h3>
-					<hr>
-					<p>Description</p>
-				</div>
+						<a href="./blog/rss.xml"><button class="flat" style="--main-color: var(--vhs-txt3);float: right;font-size: .75em;"><span class="material-symbols-outlined">rss_feed</span> rss.xml</button></a>
+					</td>
+					<td style="width: 75%;" id="blog-card-container">
 					</td>
 				</tr>
 			</table>
         </div>
     </body>
 </html>
+<!--
+<div class="blog-card" style="width: 100%;">
+	<h3>How to make websites</h3>
+	<p class="subtext"><span class="material-symbols-outlined">edit</span> 2026-04-01 | <span class="tag">tutorial</span> <span class="tag">ui</span> <span class="tag">code</span></p>
+	<hr>
+	<p class="content">Lorem ipsum dolor sit amet, commodo dolore nisi aliqua occaecat, fugiat incididunt ipsum consectetur id qui ullamco quis. Elit est nulla occaecat sed officia ad voluptate. Sed nostrud cillum duis ut laboris consectetur. Reprehenderit officia ullamco cupidatat aliqua do tempor duis. Minim mollit et consequat sit laborum ipsum aute.</p>
+</div>
+-->
