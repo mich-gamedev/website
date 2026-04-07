@@ -8,6 +8,8 @@
  * @version 1.0
  */
 
+ @import url(prism.css);
+
 :root {
     --vhs-bg0             : #141414;
     --vhs-bg1             : #202125;
@@ -178,4 +180,20 @@ pre[class*="language-"] {
 
 .token.deleted {
 	background: var(--vhs-red); /* red2 */
+}
+
+.token.treeview-part .line-h::before,
+.token.treeview-part .line-v::before {
+	border-left: 2px solid var(--vhs-txt4);
+	height: 110%;
+}
+.token.treeview-part .line-v-last::before {
+	height: 50%;
+	border-left: 2px solid var(--vhs-txt4);
+	border-bottom: 2px solid var(--vhs-txt4);
+	border-radius: 0px 0px 0px 8px;
+}
+.token.treeview-part .line-h::after {
+	height: 50%;
+	border-bottom: 2px solid var(--vhs-txt4);
 }

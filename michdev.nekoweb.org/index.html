@@ -32,33 +32,7 @@
 			</p>
 			<div class="empty">
 				<p>heyo :] i'm mich and I make tiny programs out of tiny pictures</p>
-				<p><span style="font-weight: 500;">currently working on:</span> Explosive Potato, an online multiplayer game where you throw bombs at your friends</p>\
-				<pre><code class="language-gdscript">@tool class_name RingDraw extends Node2D
-
-@export var ring_width := 4.0:
-	set(v):
-		ring_width = v
-		queue_redraw()
-@export var radius := 24.0:
-	set(v):
-		radius = v
-		queue_redraw()
-@export var ring_color := Color.WHITE:
-	set(v):
-		ring_color = v
-		queue_redraw()
-@export var fill_color := Color.TRANSPARENT:
-	set(v):
-		fill_color = v
-		queue_redraw()
-@export var editor_only := false
-
-func _draw() -> void:
-	if editor_only and !Engine.is_editor_hint(): return
-	if !is_zero_approx(ring_width):
-		draw_circle(Vector2(), radius, ring_color, false, ring_width * 2)
-	draw_circle(Vector2(), radius, fill_color)
-</code></pre>
+				<p><span style="font-weight: 500;">currently working on:</span> Explosive Potato, an online multiplayer game where you throw bombs at your friends</p>
 			</div>
 			<p style="margin:auto;text-align: center">
 				<a href="https://discord.gg/p6CYwAcNfR"><button class="flat"><i class="nf nf-fa-discord"></i> discord</button></a> | 

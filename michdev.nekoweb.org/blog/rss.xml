@@ -20,6 +20,122 @@ misc
 		<description>mich's blog</description>
 		<link>https://michdev.nekoweb.org/blog.html</link>
 		<item>
+			<title>project structure</title>
+			<description>
+				<p>sometimes, project structure comes up in conversation, so i figured i'd summarize how i do it here. this is specifically for godot projects, i'm kind of all over the place on other platforms.</p>
+				<p>the most important concept is understanding how your dependencies flow. alot of beginners tend to think by separating it by art, scripts, scenes, etc, but this causes problems because your dependencies are all over the place. your player scripts are going to be in every single folder, which, say you ever need to isolate the player script or you want to remove it or you want to reuse it in a new project, it's gonna be hard to keep track of everything.</p>
+				<p>the better way, is to organize things by their dependencies, your player should have a script full of stuff for just the player. you will still have dependencies on outside stuff, you almost can't avoid it without sacrificing other stuff, but it becomes much more manageable to either sever those dependencies or just bring the whole other folder in if it matters.</p>
+				<p>if a visual helps:</p>
+				<table style="width:100%">
+					<tr>
+						<td style="width:50%;vertical-align: top;">
+						<h4>by type</h4>
+						<pre><code class="language-treeview">res:///
+|-- art/
+|   |-- player.png
+|   `-- boss.png
+|-- scripts/
+|   |-- player.gd
+|   |-- gun.gd
+|   `-- boss.gd
+`-- scenes/
+    |-- player.tscn
+    `-- boss.tscn</code></pre>
+						<p>if you wanna take out the player, you have to navigate many folders and find the right files. this gets exponentially worse with more complexity</p>
+						</td>
+						<td style="width:50%;vertical-align: top;">
+						<h4>by dependency</h4>
+						<pre><code class="language-treeview">res:///
+|-- player/
+|   |-- player.tscn
+|   |-- player.gd
+|   `-- player.png
+|-- boss/
+|   |-- boss.tscn
+|   |-- boss.gd
+|   `-- boss.png
+`-- gun/
+    `-- gun.gd</code></pre>
+						<p>if you wanna take out the player, you can just find the "player" folder. but the player also uses guns, so we should also either grab the gun script or remove the dependencies from our code and/or scene</p>
+						</td>
+					</tr>
+				</table>
+				<p>however, having every single game thing as a bunch of folders in your root directory is ugly and hard to navigate. for that, we can actually bring back the idea of a scene and scripts and assets folder; the difference is that these are for generic concepts, which leads to this kind of structure:</p>
+				<pre><code class="language-treeview">res://
+|-- assets/
+|-- components/ 
+|-- objects/ 
+|-- resources/ 
+`-- scenes/</code></pre>
+			<p><code class="language-treeview">assets/</code> would contain generic assets, this could be fonts, asset packs, images like the main game logo, and similar things. the subdirectories would be different types of assets</p>
+			<p><code class="language-treeview">components/</code> would contain generic component scripts, things like your gun or your health. the subdirectories would be different systems, or the kind of thing they do if they're not part of a specific system (i.e. many of my custom drawing classes are in a drawing folder)</p>
+			<p><code class="language-treeview">objects/</code> would contain specific world objects like the player or the boss or maybe some rocks to place in levels. the subdirectories would be the respective object, or group of objects if it's a group of similar things (like many different rocks)</p>
+			<p><code class="language-treeview">resources/</code> would contain common resources like maybe the main tileset, your generic shaders, and UI themes. the subdirectories would be the type of resource</p>
+			<p><code class="language-treeview">scenes/</code> would contain runnable scenes, like the world or the main menu. the subdirectories would be for the respective scene</p>
+			<h2>what does this fully look like?</h2>
+			<pre><code class="language-treeview">res:///
+|-- assets/
+|   |-- fonts/
+|   |   |-- header_font.ttf 
+|   |   `-- main_font.tff 
+|   `-- capsule/
+|      |-- logo.png 
+|      |-- background_layer1.png 
+|      `-- background_layer2.png
+|-- components/ 
+|   |-- bullets/ 
+|   |   |-- gun.gd 
+|   |   `-- bullet.gd 
+|   `-- health/
+|      |-- health.gd 
+|      |-- hitbox.gd 
+|      `-- hurtbox.gd 
+|-- objects/ 
+|   |-- player/ 
+|   |   |-- player.tscn 
+|   |   |-- player.gd 
+|   |   `-- player.png 
+|   `-- boss/
+|      |-- boss.tscn 
+|      |-- boss.gd 
+|      `-- boss.png 
+|-- resources/ 
+|   |-- themes/ 
+|   |   `-- main.theme 
+|   |-- shaders/ 
+|   |   |-- hitflash.gdshader
+|   |   `-- wavy_effect.gdshader
+|   `-- save_data/ 
+|      |-- save_data.gd 
+|      `-- default.tres 
+`-- scenes/
+   |-- main_menu/
+   |   |-- main_menu.gd
+   |   |-- start_button.gd
+   |   `-- main_menu.tscn
+   `-- world/
+      |-- world.gd 
+      `-- world.tscn</code></pre>
+	  		<h2>additional notes</h2>
+			<p>there's 2 great plugins i use for making the filesystem more navigable:</p>
+			<p>- <a href="https://godotengine.org/asset-library/asset/3863">Fancy Folder Icons</a></p>
+			<p class="subtext">Lets you add icons to folders</p>
+			<p>- <a href="https://godotengine.org/asset-library/asset/3859">Fancy Folder Colors</a></p>
+			<p class="subtext">Lets you choose more specific colors than the default allows</p>
+			<p>small editors note, just finding out these are made by the same person; thanks twister :p</p>
+			<p>with these, you can get something like this:</p>
+			<img src="./blog/img/projstructure/example.png"></img>
+			<p>the second one is used with the different themes, since i have many themes with different colors, it's really helpful to immediately see the color of each</p>
+			<p>i'm using the <a href="https://fonts.google.com/icons">material symbols icon pack</a> by google for the icons, if you're looking for some</p>
+			<hr></hr>
+			<p>also remember to keep files in <code class="language-none">snake_case</code> as godot recommends it. atleast keep it consistent, because if it's inconsistent it can mess with windows to linux because of windows being case insensitive unlike other operating systems.</p>
+			</description>
+			<guid>projstructure</guid>
+			<link>./post.html?guid=projstructure</link>
+			<category>godot</category>
+			<category>code</category>
+		</item>
+		<item>
 			<title>how i make sprites out of nodes</title>
 			<description>
 				<p>i find myself often sharing how i make sprites directly in godot rather than an art program, so here's how i do that :p</p>
