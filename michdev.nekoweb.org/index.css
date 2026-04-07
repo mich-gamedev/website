@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
-@import url(vinths.css);
 :root {
     --vhs-bg0             : #141414;
     --vhs-bg1             : #202125;
@@ -333,7 +332,7 @@ pre.logo-possum {
   user-select: none; /* Standard syntax */
 }
 .material-symbols-outlined.fill {
-  font-variation-settings: 'FILL' 1, 'wght' 900, 'opsz' 20;
+  font-variation-settings: 'FILL' 1;
 }
 button:hover > .material-symbols-outlined {
   font-variation-settings: 'FILL' 1, 'wght' 900, 'opsz' 20;
@@ -363,6 +362,11 @@ div.blog-card {
   overflow-wrap: break-word;
   transition: 0.15s;
   cursor: pointer;
+  max-width: -moz-available;
+}
+@keyframes fade-in {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 div.blog-card:hover {
   border                : 2px solid var(--vhs-txt4);
@@ -389,7 +393,7 @@ div.blog-card > p {
   word-break   : break-word;
 }
 div.blog-card > p.content {
-  mask-image: linear-gradient(rgba(0,0,0,1) 90%, rgba(0,0,0,0) 95%);
+  mask-image: linear-gradient(rgba(0,0,0,1) 66%, rgba(0,0,0,0) 95%);
   height: 100%;
 }
 div.blog-card:hover > p {

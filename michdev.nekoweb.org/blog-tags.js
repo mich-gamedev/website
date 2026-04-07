@@ -16,12 +16,12 @@ function toggleActive(button) {
     addCards()
 }
 
-const htmlBlogCard = '<div class=\"blog-card\" style=\"width: 100%;\"\>\
+const htmlBlogCard = '<a href=\"{LINK}\"><div class=\"blog-card\" style=\"width: 100%\"\>\
 	<h3>{TITLE}</h3>\
 	<p class=\"subtext\"><span class=\"material-symbols-outlined\">edit</span> {PUBDATE} | {TAGS}\
 	<hr>\
 	<p class=\"content\" style="height:100%">{DESCRIPTION}</p>\
-</div>'
+</div><a>'
 const htmlTag = "<span class=\"tag\">{NAME}</span> "
 
 function addCards() {
@@ -30,23 +30,33 @@ function addCards() {
     var activeFilters = [];
     for (let filter of document.getElementsByClassName("filter-active")) {
         activeFilters.push(filter.id)
+        console.log("active filter...")
         console.log(filter)
     }
+    console.log("all active filters...")
     console.log(activeFilters)
     var xmlDoc = xml.responseXML;
     let items = Array.from(xmlDoc.getElementsByTagName("item"))
     console.log(items)
     for (let item of items) {
         let isValid = true
+        let categories = []
         for (let child of item.children) {
             // TODO: currently this acts like an "or" operation. make it act like an "and" operation by accumulating the category item contents in an array and seeing if all activeFilters are present in the array
-            if ((child.tagName == "category" && activeFilters.includes(child.textContent)) || activeFilters.length == 0) {
-                isValid = true
+            if (child.tagName == "category") {
+                categories.push(child.textContent)
+            }
+        }
+        console.log("post categories...")
+        console.log(categories)
+        for (let filter of activeFilters) {
+            if (!categories.includes(filter)) {
+                isValid = false
                 break
             }
         }
         if (isValid) {
-            var title = "", pubdate = "", tags = "", desc = ""
+            var title = "", pubdate = "", tags = "", desc = "", link=""
             for (let child of item.children) {
                 switch (child.tagName) {
                     case "title":
@@ -61,6 +71,9 @@ function addCards() {
                     case "description":
                         desc = child.textContent
                         break
+                    case "link":
+                        link = child.textContent
+                        break
                 }
             }
             let format = htmlBlogCard.replace(
@@ -71,6 +84,8 @@ function addCards() {
                 "{TAGS}", tags
             ).replace(
                 "{DESCRIPTION}", desc
+            ).replace(
+                "{LINK}", link
             )
             document.getElementById("blog-card-container").innerHTML += format
         }

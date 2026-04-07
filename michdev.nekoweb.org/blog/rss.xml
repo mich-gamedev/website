@@ -20,14 +20,163 @@ misc
 		<description>mich's blog</description>
 		<link>https://michdev.nekoweb.org/blog.html</link>
 		<item>
-			<title>testing testing</title>
-			<description>Hopefully this looks cool. Lorem ipsum dolor sit amet, laborum esse commodo in fugiat tempor commodo magna. Fugiat nisi laboris esse. Ad magna mollit enim sit deserunt ex. Aliqua nisi esse magna anim quis adipiscing, voluptate irure occaecat sint cillum, et ipsum do lorem nulla tempor duis. Deserunt lorem tempor pariatur incididunt reprehenderit. Do esse aliquip veniam culpa duis veniam, proident exercitation id commodo elit sunt ipsum qui, aute ut ullamco amet. Veniam occaecat nostrud voluptate esse exercitation est ea, pariatur tempor ullamco duis labore excepteur eiusmod. Excepteur in sit cillum est ut cupidatat, culpa pariatur incididunt culpa pariatur anim qui, pariatur sint do eiusmod duis irure aliqua. Excepteur sed nostrud proident sit velit, sit qui laboris minim velit ipsum veniam cupidatat. Fugiat eiusmod voluptate sint. Excepteur adipiscing est cupidatat qui non veniam. Do occaecat dolore labore aliquip pariatur laborum. Ex fugiat consequat ut quis dolore anim. Aliquip et culpa veniam et consequat sunt tempor.</description>
-			<link>https://michdev.nekoweb.org/blog/2025_04_11.html</link>
-			<guid>firstpost</guid>
-			<pubDate>Fri 03 Apr 2026, 00:34:00 -0400</pubDate>
+			<title>how i make sprites out of nodes</title>
+			<description>
+				<p>i find myself often sharing how i make sprites directly in godot rather than an art program, so here's how i do that :p</p>
+				<h2>okay, but why?</h2>
+				<p>godot has infected my mind in irreversible ways. my notes are taken in trees, most of my ui demos are in godot, and my hair is starting to get weird bumps <i class="nf nf-dev-godot"> </i>. okay but all jokes aside i do actually have a reason (whether or not it's good? ill, uh, let you decide)</p>
+				<p>- avoids rasterization</p>
+				<p class="subtext">godot doesn't actually render SVGs as vectors. it'll first rasterize it (turning it into pixels) and then draw that. the new-ish DPITexture helps but it's imperfect, and according to godot themselves not a full solution.</p>
+				<p>- super easy animation</p>
+				<p class="subtext">maybe a hot take! i like AnimationPlayer! i use it for almost everything. the way my artstyle works, i could compose stuff out of svgs but i'd have to do sprite stacking for all sprites, and if i wanna animate some new element, i have to go back and split it up. with my method, i can animate literally anything in a sprite and it'll look totally radical</p>
+				<p>- i dont like svg editors</p>
+				<p class="subtext">maybe a hot take<sup>2</sup>! i DON'T like SVG software. i haven't found one that i don't fit slightly annoying and in-my-way-all-the-damn-time. maybe adobe illustrator is good. i'm not finding out. the best i've found is krita but i honestly say that for everything surrounding it's vector capabilities, not specifically the vector stuff. this feeds into the upper point, if i have to go back and split up an svg, i have to use svg software and i think inkscape now flinches everytime i look at it</p>
+				<p>- automation</p>
+				<p class="subtext">last but honestly maybe most, i know godot very well and i am very good at automating my tools in ways i couldn't with an SVG editor. there's very little difference between my greyboxing and final levels in explosive potato because frankly, nothings is hand placed. it'd be harder to have it in 2 stages than to just... make the level without the flowers or grass (which i've also thought of automating). of course this also goes into individual sprites like the player, i've automated alot of the art stuff (that i can get away with)</p>
+				<h2>there are downsides...</h2>
+				<p>if you aren't used to handling *lots* of nodes... uh you'll be in for a treat. for reference here's the barrel's scene tree</p>
+				<img src="./blog/img/spritesfromnodes/barrel_tree.png" width="800px"></img>
+				<p>if performance sounds like a concern, it probably won't be. i easily get over 60fps on my thinkpad t580 with only integrated intel uhd 620 graphics, and even if you use this technique my project probably uses heavier graphics effects then you'll need</p>
+				<p>the other issue, if you're making outlines, can be outlines... i've been making mine manually, which depending on complexity can be really challenging</p>
+				<h2>basics of how to do it</h2>
+				<p>I use a mixture of built in nodes and my own custom nodes. I'll go over the built in ones first:</p>
+				<p>- <img src="https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/ColorRect.svg"></img> ColorRect</p>
+				<p class="subtext">useful for solid rectangles of color</p>
+				<p>- <img src="https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Panel.svg"></img> Panel</p>
+				<p class="subtext">useful for slightly more complex rectangles and parallelograms, i.e. if they have rounded corners or outlines. I'd also check out the <a href="https://godotengine.org/asset-library/asset/4407">StyleBoxFancy extension</a> which let you do alot of cool stuff as you'll see</p>
+				<p>- <img src="https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Polygon2D.svg"></img> Polygon2D</p>
+				<p class="subtext">useful for, you guessed it, polygons</p>
+				<p>- <img src="https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Line2D.svg"></img> Line2D</p>
+				<p class="subtext">yeah okay we get it i think</p>
+				<p>There's also some useful properties to look out for, i.e. <code class="language-gdscript">CanvasItem.clip_children</code> which lets you make a parent act as a mask for it's children.</p>
+				<h3>Custom nodes</h3>
+				<h5>RingDraw</h5>
+				<p>The most important one in this group is my RingDraw class. this lets you draw circles and rings, and i probably use it more than anything</p>
+				<pre><code class="language-gdscript">@tool class_name RingDraw extends Node2D
+
+## Width of the outer ring, in pixels.
+@export var ring_width := 4.0:
+	set(v):
+		ring_width = v
+		queue_redraw()
+## Radius of the circle, in pixels.
+@export var radius := 24.0:
+	set(v):
+		radius = v
+		queue_redraw()
+## Color of the outer ring.
+@export var ring_color := Color.WHITE:
+	set(v):
+		ring_color = v
+		queue_redraw()
+## Color of the inner circle.
+@export var fill_color := Color.TRANSPARENT:
+	set(v):
+		fill_color = v
+		queue_redraw()
+## Whether or not the circle should only render inside the editor, being invisible in game if true.
+@export var editor_only := false
+
+func _draw() -> void:
+	if editor_only and !Engine.is_editor_hint(): return
+	if !is_zero_approx(ring_width):
+		draw_circle(Vector2(), radius, ring_color, false, ring_width * 2)
+	draw_circle(Vector2(), radius, fill_color)</code></pre>
+				<p>in case you've never seen <code class="language-gdscript">@tool</code> or <code class="language-gdscript">_draw()</code>, here's some guides:</p>
+				<p>- <a href="https://docs.godotengine.org/en/stable/tutorials/plugins/running_code_in_the_editor.html">running code in the editor</a> (<code class="language-gdscript">@tool</code>)</p>
+				<p>- <a href="https://docs.godotengine.org/en/stable/tutorials/2d/custom_drawing_in_2d.html">custom drawing in 2d</a> (<code class="language-gdscript">_draw()</code>)</p>
+				<h5>Spline</h5>
+				<p>Another is Spline. It's a way of turning a bezier curve into a <img src="https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Line2D.svg"></img> Line2D, and this is done via <img src="https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Path2D.svg"></img> Path2D (mostly because it conveniently uses bezier curves and has an editor for them, so we don't have to do that)</p>
+				<pre><code class="language-gdscript">@tool class_name Spline extends Path2D
+
+@export var line: Line2D:
+	set(v):
+		line = v
+		_update()
+		update_configuration_warnings()
+@export var point_count: int = 48:
+	set(v):
+		point_count = v
+		_update()
+@export_group("Start", "start_")
+@export var start_progress: float:
+	set(v):
+		start_progress = v
+		_update()
+@export_range(0, 1) var start_prograss_ratio: float:
+	set(v):
+		start_progress = v * curve.get_baked_length()
+	get:
+		return start_progress / curve.get_baked_length()
+@export_group("End", "end_")
+@export var end_progress: float:
+	set(v):
+		end_progress = v
+		_update()
+@export_range(0, 1) var end_progress_ratio: float:
+	set(v):
+		end_progress = v * curve.get_baked_length()
+	get:
+		return end_progress / curve.get_baked_length()
+var points: PackedVector2Array
+
+func _get_configuration_warnings() -> PackedStringArray:
+	if !line: return ["No Line2D node provided, so this node will not draw anything."]
+	return []
+
+func _process(delta: float) -> void:
+	if points != curve.get_baked_points():
+		points = curve.get_baked_points()
+		_update()
+
+func _update() -> void:
+	if !line: return
+	line.clear_points()
+	if start_progress == end_progress: return
+	if !curve.get_baked_points(): return
+	for i in point_count:
+		var offset := lerpf(start_progress, end_progress, float(i)/point_count)
+		line.add_point(curve.sample_baked(offset))</code></pre>
+				<p>another cool part to this node type, is that it lets you interpolate the spline, so for example you could make, for example, a wind trail</p>
+				<h5>PolygonOffsetter</h5>
+				<p>when working with polygons, "offsetting" is making them grow/shrink in size. this class just adds a simple way to quickly do that (helpful with outlines, mostly)</p>
+				<pre><code class="language-gdscript">@tool class_name PolygonOffsetter extends Polygon2D
+
+@export var increase_amount: float = 7
+@export_tool_button("Adjust polygon offset")
+var _adjust := func() -> void:
+	polygon = Geometry2D.offset_polygon(polygon, increase_amount, Geometry2D.JOIN_ROUND)[0]</code></pre>
+				<h2>tips and tricks</h2>
+				<p>- use <img src="https://raw.githubusercontent.com/godotengine/godot/master/editor/icons/Node2D.svg"></img> Node2D to make folders / bones</p>
+				<p class="subtext">you can almost think of this as a rig at certain points. using Node2D as a parent can make it really easy to add pivots to different parts of the body of the sprite. if you go back to the scene tree i had shown earlier, i do this for the different segments of the baarrel as i wanted the lid to shake when it was close to exploding. the scene tree is your friend!</p>
+				<p>- this doesn't mean use no images</p>
+				<p class="subtext">i use images all the time for icons or more complex shapes i cant easily make even with my advantages. you don't lost the advantages mentioned by using them</p>
+				<p>- PLEASE. use good naming conventions</p>
+				<p class="subtext">navigating these trees gets alot easier if you put in that extra 5% to make the tree navigable, believe it or not. if you've been around the block you're probably already good at naming conventions, but don't neglect it here just because this isn't programming</p>
+				<p>- <code class="language-gdscript">@tool</code> is your friend</p>
+				<p class="subtext">as i mentioned, automation is one of the biggest advantages here. there's tons of scripts i've made that i haven't shared. (maybe i'll make another post on some of those eventually, my wall and brick generators are super interesting but too complicated for this post)</p>
+			</description>
+			<link>post.html?guid=spritesfromnodes</link>
+			<guid>spritesfromnodes</guid>
+			<pubDate>Fri 05 Apr 2026, 00:00:00 -0400</pubDate>
+			<category>tutorial</category>
 			<category>godot</category>
-            <category>2d</category>
-            <category>idea</category>
+			<category>2d</category>
+		</item>
+		<item>
+			<title>revamped the website</title>
+			<description>
+				<p>i've completely redone the website from the ground up, as i originally made my website when i first learned HTML and i think i can do alot better now.</p>
+				<h2>info for nerds</h2>
+				<p>the palette i'm using is one i made myself called <a href="https://lospec.com/palette-list/vint-hs">vint-hs</a>. it's heavily inspired by blank vhs boxes and their fun designs, though i dont think the website really reflects that.</p>
+				<p>the font used is <a href="https://fonts.google.com/specimen/Fira+Code">fira code</a>, a monospace font with ligatures that i really like. and the icons are from google's <a href="https://fonts.google.com/icons">Material Symbols</a> set.</p>
+				<p>all the source code is on <a href="https://github.com/mich-gamedev/website">github</a>, if you wanna see it. that's all i have for now :] i do plan to use the blog more, and i actually have a workflow that makes sense for it :p i think it'll mostly be godot tutorials and updates on my current online PvP project, explosive potato! join the <a href="https://discord.gg/p6CYwAcNfR">discord server</a> if you wanna see more consistent stuff about that.</p>
+			</description>
+			<link>post.html?guid=siterevamp</link>
+			<guid>siterevamp</guid>
+			<pubDate>Fri 04 Apr 2026, 15:00:00 -0400</pubDate>
+			<category>code</category>
+            <category>misc</category>
 		</item>
 		<item>
 			<title>first blog post :]</title>
@@ -36,7 +185,6 @@ misc
 			<guid>firstpost</guid>
 			<pubDate>Fri 11 Apr 2025, 09:45:00 -0400</pubDate>
 			<category>misc</category>
-            <category>tutorial</category>
 		</item>
 	</channel>
 </rss>
